@@ -9,11 +9,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^4.0.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-fileupload": "^1.1.7-alpha.3",
     "express-formidable": "^1.2.0",
+    "express-session": "^1.17.1",
     "mongoose": "^5.9.13",
+    "passport": "^0.4.1",
+    "passport-local-mongoose": "^6.0.1",
     "sweetalert2": "^9.11.0"
   }
 }

@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
 const esquema = new mongoose.Schema({
-    nombre: String,
-    correoElectronico: String,
-    contraseña: String,
-    imgRoute: String
+    name: String,
+    email: String,
+    password: String,
+    rol: String
 });
 
-module.exports = mongoose.model("Archivos", esquema);
+module.exports = mongoose.model("usuarios", esquema);

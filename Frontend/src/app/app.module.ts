@@ -32,6 +32,7 @@ import { PaginaPrincipalShowComponent } from './pagina-principal-show/pagina-pri
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PaginaEstaticaComponent } from './pagina-estatica/pagina-estatica.component';
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { PaginasVisiblesComponent } from './paginas-visibles/paginas-visibles.component';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
     SeguridadPaginasComponent,
     PaginaPrincipalShowComponent,
     PaginaEstaticaComponent,
+    PaginasVisiblesComponent,
   ],
   imports: [
     BrowserModule,

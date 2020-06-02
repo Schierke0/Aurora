@@ -1,39 +1,18 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-var Archivo = require('../models/archivos');
-var mongoose = require('mongoose');
-const fs = require("fs");
-//const formidableMiddleware = require("express-formidable");
-//router.use(formidableMiddleware());
+var bcrypt = require("bcrypt");
+var User = require("../models/usuarios");
+var BCRYPT_SALT_ROUNDS = 12;
 
+/* REGISTER USER. */
+router.post("/registro", function(req, res) {
+    var email = req.body.email;
+    var password = req.body.password;
 
-//CREAR UN ARCHIVO
-router.post('/', function(req, res) {
-    if (req.files == null)
-        return res.send({ message: "no ha seleccionado ningun archivo. Por favor seleccionar uno", err: 1, });
-
-    let archivo = req.files.file; //mismo nombre en el form! importante
-    let tipoArchivo = archivo.mimetype;
-    // res.send({ 'tipo': tipoArchivo })
-
-    let ruta = './archivos'; // ruta donde guardar
-    let accesoRoute = "/archivosPublicos";
-    let categoria = asignarCategoria(tipoArchivo);
-
-
-    ruta = `${ruta}/${categoria}/${archivo.name}`
-    accesoRoute = `${accesoRoute}/${categoria}/${archivo.name}`
-        //es.send({ 'accesoRoute': accesoRoute, 'ruta': ruta })
-    archivo.mv(ruta, (err) => {
-        if (err) return res.send(err);
-        else {
-            let u = new Archivo({
-                nombre: archivo.name,
-                url: ruta,
-                accesoRoute: accesoRoute,
-                tipoArchivo: tipoArchivo,
-                categoria: categoria,
-            });
+    bcrypt
+        .hash(password, BCRYPT_SALT_ROUNDS)
+        .then(function(hashedPassword) {
+            var u = new User({ email: email, password: hashedPassword, name: req.body.name, rol: req.body.rol });
             u.save()
                 .then((result) => {
                     res.send(result);
@@ -46,73 +25,97 @@ router.post('/', function(req, res) {
             res.send({
                 codigoResultado: 1,
                 mensaje: "Registro guardado",
-                ArchivoGuardado: u
+                ArchivoGuardado: u,
             });
+        })
+        .then(function() {
+            res.send();
+        })
+        .catch(function(error) {
+            console.log("Error saving user: ");
+            console.log(error);
+            next();
+        });
+
+
+
+});
+
+/* LOGIN USER. */
+router.post("/login", function(req, res) {
+    var email = req.body.email;
+    var password = req.body.password;
+    let usuario;
+    User.findOne(({ "email": email })).then(function(user) {
+        usuario = user
+        return bcrypt.compare(password, user.password);
+    }).then(function(samePassword) {
+        if (!samePassword) {
+            res.send("Su contraseña es incorrecta");
+        } else {
+            req.session.user = usuario;
+            res.send("bienvenido esta logeado");
+        }
+    }).catch(function(error) {
+        res.send("Verifica si tu correo esta correcto");
+        console.log(error);
+        res.end()
+    });
+});
+
+
+/* app.post("/login", function(req, res, next) {
+    var username = req.body.username;
+    var password = req.body.password;
+
+    usersDB
+
+}); */
+/* GET LOGOUT */
+router.get('/logout', function(req, res) {
+    req.session.destroy(function(err) {
+        if (err) {
+            /* console.log(err); */
+            res.send(err.message);
+        } else {
+            /* res.send('User logged out successfully!', res, {}); */
+            res.send("User logged out successfully!");
         }
     });
+});
+/* GET DASHBOARD */
+router.get("/dashboard", function(req, res) {
+    if (!req.session.user) {
+        res.send("You are not logged in");
+    } else {
+        res.send("Welcome to dashboard!");
+    }
+});
+/* Obtener todos los usuarios */
+router.get("/", function(req, res) {
+    User.find().then((result) => {
+            res.send(result);
+            res.end();
+        })
+        .catch((err) => {
+            res.send(err);
+            res.end();
+        });
 
-})
-
-
-//OBTENER UN ARCHIVO
-router.get('/:id', function(req, res) {
-    Archivo.find({ _id: req.params.id })
-        .then(result => {
+});
+/* Obtener un usuario */
+router.get("/:idUser", function(req, res) {
+    User.find({ _id: req.params.idUser }).then((result) => {
             res.send(result[0]);
             res.end();
         })
-        .catch(error => {
-            res.send(error);
+        .catch((err) => {
+            res.send(err);
             res.end();
-        })
-})
+        });
 
+});
 
-
-//OBTENER TODOS LOS ARCHIVOS
-router.get('/', function(req, res) {
-    Archivo.find()
-        .then(data => {
-            res.send(data)
-            res.end()
-        })
-        .catch(err => {
-            res.send(err)
-            res.end()
-        })
-})
-
-
-
-
-//ELIMINAR UN ARCHIVO 
-router.delete('/:id', function(req, res) {
-    Archivo.findOne({ _id: req.params.id }, { url: 1 })
-        .then(response => {
-            if (fs.existsSync(`${response.url}`)) {
-                fs.unlinkSync(`${response.url}`);
-            }
-        })
-        .catch(err => {
-            res.send(err)
-            res.end()
-        })
-
-    Archivo.deleteOne({ _id: req.params.id })
-        .then(data => {
-            res.send(data)
-            res.end()
-        })
-        .catch(err => {
-            res.send(err)
-            res.end()
-        })
-
-})
-
-
-
-//ACTUALIZAR UN ARCHIVO
 
 
 module.exports = router;
