@@ -15,10 +15,11 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import {PaginaPrincipalShowComponent} from './pagina-principal-show/pagina-principal-show.component'
 import { PaginaEstaticaComponent } from './pagina-estatica/pagina-estatica.component';
+import { LoginAdminComponent } from './login-admin/login-admin.component';
 const routes: Routes = [
-{
-  path:"dashboard",
-  component: TableroAdminComponent,
+  {
+    path: "dashboard",
+    component: TableroAdminComponent,
     children: [
       {
         path: "admin-paginas",
@@ -59,29 +60,33 @@ const routes: Routes = [
       {
         path: "usuarios",
         component: UsuariosComponent,
-      }
-    ]
-},
-{
-  path:"pagina-principal",
-  component:PaginaPrincipalComponent
-},
-{
-  path: "login",
-  component: LoginComponent
-},
-{
-  path: '',
-  component: LandingPageComponent
-},
-{
-  path: "paginaPrincipal",
-  component: PaginaPrincipalShowComponent
-},
-{
-  path: "paginaEstaticaGenerada",
-  component: PaginaEstaticaComponent
-}
+      },
+    ],
+  },
+  {
+    path: "pagina-principal",
+    component: PaginaPrincipalComponent,
+  },
+  {
+    path: "login",
+    component: LoginComponent,
+  },
+  {
+    path: "",
+    component: LandingPageComponent,
+  },
+  {
+    path: "paginaPrincipal",
+    component: PaginaPrincipalShowComponent,
+  },
+  {
+    path: "paginaEstaticaGenerada",
+    component: PaginaEstaticaComponent,
+  },
+  {
+    path: "admin",
+    component: LoginAdminComponent,
+  },
 ];
 
 @NgModule({

@@ -16,18 +16,22 @@
             <img class="img-fluid" style="margin-top: 9px; object-position: right;" src="../../assets/img/ballenita-smally-1.png">
             <div class="login-show" *ngIf="login">
                 <h2>LOGIN</h2>
-                <input type="text" placeholder="Correo Electronico">
-                <input type="password" placeholder="Contraseña">
-                <button class="btn btn-dark  btn-lg">Login</button><br>
+                <form [formGroup]="formularioLogin">
+                    <input type="text" formControlName="email" [ngClass]="{'input-error':emailL.invalid && (emailL.dirty || emailL.touched)}" placeholder="Correo Electronico" required>
+                    <input type="password" formControlName="password" [ngClass]="{'input-error':passwordL.invalid && (passwordL.dirty || passwordL.touched)}" placeholder="Contraseña" required>
+                </form>
+                <span class="mensajeServidor" *ngIf="servidorEstatus">{{mensajeServidor}}</span><br><br>
+                <button class="btn btn-dark  btn-lg" (click)="logearse()" [disabled]="!formularioLogin.valid">Login</button><br>
                 <a href="">Forgot password?</a>
             </div>
             <div class="register-show" *ngIf="registro">
                 <h2>REGISTRO</h2>
-                <input type="text" placeholder="Nombre">
-                <input type="text" placeholder="Correo Electronico">
-                <input type="password" placeholder="Contraseña">
-                <input type="password" placeholder="Confirmar contraseña">
-                <button class="btn btn-dark btn-lg ">Registrar</button>
+                <form [formGroup]="formularioRegistro">
+                    <input formControlName="name" [ngClass]="{'input-error':name.invalid && (name.dirty || name.touched)}" class="salidas" placeholder="Nombre" required>
+                    <input formControlName="email" [ngClass]="{'input-error':email.invalid && (email.dirty || email.touched)}" class="salidas" type="email" placeholder="Correo Electronico" required>
+                    <input type="password" formControlName="password" [ngClass]="{'input-error':password.invalid && (password.dirty || password.touched)}" placeholder="Contraseña" required>
+                </form>
+                <button class="btn btn-dark btn-lg" [disabled]="!formularioRegistro.valid" (click)="registrar()">Registrar</button>
             </div>
         </div>
     </div>

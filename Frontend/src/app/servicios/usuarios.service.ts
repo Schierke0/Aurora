@@ -8,8 +8,7 @@ export class UsuariosService {
   constructor(private httpClient: HttpClient) {}
 
   registroUsuario(data) {
-    return this.httpClient
-      .post("http://localhost:8888/usuario/",data);
+    return this.httpClient.post("http://localhost:8888/usuario/registro", data);
   }
   obtenerUsuarios(): Observable<any> {
     return this.httpClient.get("http://localhost:8888/usuario");

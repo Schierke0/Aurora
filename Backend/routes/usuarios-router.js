@@ -51,14 +51,25 @@ router.post("/login", function(req, res) {
         return bcrypt.compare(password, user.password);
     }).then(function(samePassword) {
         if (!samePassword) {
-            res.send("Su contraseña es incorrecta");
+            res.send({
+                mensaje: "Su contraseña es incorrecta",
+                codigoEstadoLogin: false,
+            });
+            res.end();
         } else {
             req.session.user = usuario;
-            res.send("bienvenido esta logeado");
+            res.send({
+                mensaje: "Loggedin satisfactorimente",
+                user: usuario,
+                codigoEstadoLogin: true
+            });
+            res.end();
         }
     }).catch(function(error) {
-        res.send("Verifica si tu correo esta correcto");
-        console.log(error);
+        res.send({
+            mensaje: "Su correo es incorrecto",
+            codigoEstadoLogin: false,
+        });
         res.end()
     });
 });
@@ -79,7 +90,10 @@ router.get('/logout', function(req, res) {
             res.send(err.message);
         } else {
             /* res.send('User logged out successfully!', res, {}); */
-            res.send("User logged out successfully!");
+            res.send({
+                mensaje: "User logged out successfully!",
+                codigoEstadoLogin: false
+            });
         }
     });
 });

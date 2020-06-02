@@ -1,0 +1,16 @@
+<div id="contenedor-login">
+    <div class="login-reg-panel">
+        <div class="white-panel">
+            <img class="img-fluid" style="margin-top: 22px; object-position: right;" src="../../assets/img/ballenita-smally-1.png">
+            <div class="login-show">
+                <h2>LOGIN ADMIN</h2>
+                <form [formGroup]="formularioLogin">
+                    <input type="text" formControlName="email" [ngClass]="{'input-error':emailL.invalid && (emailL.dirty || emailL.touched)}" placeholder="Correo Electronico" required>
+                    <input type="password" formControlName="password" [ngClass]="{'input-error':passwordL.invalid && (passwordL.dirty || passwordL.touched)}" placeholder="Contraseña" required>
+                </form>
+                <span class="mensajeServidor" *ngIf="servidorEstatus">{{mensajeServidor}}</span><br><br>
+                <button class="btn btn-dark  btn-lg" (click)="logearse()" [disabled]="!formularioLogin.valid">Login</button><br>
+                <a href="">Forgot password?</a>
+            </div>
+        </div>
+    </div>

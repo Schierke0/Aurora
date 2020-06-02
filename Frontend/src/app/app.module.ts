@@ -33,6 +33,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PaginaEstaticaComponent } from './pagina-estatica/pagina-estatica.component';
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { PaginasVisiblesComponent } from './paginas-visibles/paginas-visibles.component';
+import { LoginAdminComponent } from './login-admin/login-admin.component';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import { PaginasVisiblesComponent } from './paginas-visibles/paginas-visibles.co
     PaginaPrincipalShowComponent,
     PaginaEstaticaComponent,
     PaginasVisiblesComponent,
+    LoginAdminComponent,
   ],
   imports: [
     BrowserModule,

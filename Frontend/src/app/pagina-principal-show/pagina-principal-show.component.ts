@@ -1,8 +1,22 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { PaginaPrincipalService } from '../servicios/pagina-principal.service';
 import { PaginaEstaticaService } from '../servicios/pagina-estatica.service';
-import { CanActivate, Router } from "@angular/router";
 import { LocalStaticService } from '../pagina-estatica/local-static.service';
+import { UsuariosService } from "../servicios/usuarios.service";
+import { CanActivate, Router } from "@angular/router";
+import Swal from "sweetalert2";
+const Toast = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  onOpen: (toast) => {
+    toast.addEventListener("mouseenter", Swal.stopTimer);
+    toast.addEventListener("mouseleave", Swal.resumeTimer);
+  },
+});
+
 
 @Component({
   selector: "app-pagina-principal-show",
@@ -14,7 +28,8 @@ export class PaginaPrincipalShowComponent implements OnInit {
     private paginaPrincipalService: PaginaPrincipalService,
     private paginaEstaticaService: PaginaEstaticaService,
     private router: Router,
-    private localStaticService: LocalStaticService
+    private localStaticService: LocalStaticService,
+    private UsuarioService: UsuariosService
   ) {}
   /* @Output() onActualizarId = new EventEmitter(); */
   css;
@@ -30,7 +45,7 @@ export class PaginaPrincipalShowComponent implements OnInit {
 
   ngOnInit(): void {
     this.paginaEstaticaService.obtenerPaginas().subscribe((res: any) => {
-     // console.log(res);
+      // console.log(res);
       this.paginasEstaticas = res;
     });
     this.paginaPrincipalService
@@ -58,5 +73,14 @@ export class PaginaPrincipalShowComponent implements OnInit {
     /* this.onActualizarId.emit(idPaginaEstatica); */
     this.localStaticService.actualizarId(idPaginaEstatica);
     this.router.navigate(["/paginaEstaticaGenerada"]);
+  }
+  logout() {
+    this.UsuarioService.logoutUsuario().subscribe((res: any) => {
+      Toast.fire({
+        icon: "success",
+        title: "Logout con éxito",
+      });
+      this.router.navigate(["/admin"]);
+    });
   }
 }
