@@ -17,11 +17,12 @@ import {PaginaPrincipalShowComponent} from './pagina-principal-show/pagina-princ
 import { PaginaEstaticaComponent } from './pagina-estatica/pagina-estatica.component';
 import { LoginAdminComponent } from './login-admin/login-admin.component';
 import {AutenticacionAdminGuard} from './guards/autenticacion-admin.guard';
+import {AutenticacionUserGuard } from "./guards/autenticacion-user.guard";
 const routes: Routes = [
   {
     path: "dashboard",
     component: TableroAdminComponent,
-    canActivate:[AutenticacionAdminGuard],
+    canActivate: [AutenticacionAdminGuard],
     children: [
       {
         path: "admin-paginas",
@@ -66,10 +67,6 @@ const routes: Routes = [
     ],
   },
   {
-    path: "pagina-principal",
-    component: PaginaPrincipalComponent,
-  },
-  {
     path: "login",
     component: LoginComponent,
   },
@@ -79,10 +76,12 @@ const routes: Routes = [
   },
   {
     path: "paginaPrincipal",
+    canActivate: [AutenticacionUserGuard],
     component: PaginaPrincipalShowComponent,
   },
   {
     path: "paginaEstaticaGenerada",
+    canActivate: [AutenticacionUserGuard],
     component: PaginaEstaticaComponent,
   },
   {

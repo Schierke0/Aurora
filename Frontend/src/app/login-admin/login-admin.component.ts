@@ -49,7 +49,7 @@ export class LoginAdminComponent implements OnInit {
     if (this.formularioLogin.valid) {
       this.UsuarioService.loginUsuario(this.formularioLogin.value).subscribe(
         (res: any) => {
-          console.log(res);
+          //console.log(res);
           if (!res.codigoEstadoLogin) {//mostrar mensaje al usuario si existe o no
             this.mensajeServidor = res.mensaje;
             this.servidorEstatus = true;
@@ -69,7 +69,6 @@ export class LoginAdminComponent implements OnInit {
                     codigoEstadoLogin: res.codigoEstadoLogin,
                   };
                   sessionStorage.setItem("user", JSON.stringify(datosUser));
-                  console.log(JSON.parse(sessionStorage.getItem("user")));
                   this.router.navigate(["/dashboard"]);
                 }
           }

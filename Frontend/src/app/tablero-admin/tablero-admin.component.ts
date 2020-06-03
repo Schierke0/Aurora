@@ -23,8 +23,8 @@ export class TableroAdminComponent implements OnInit {
     private UsuarioService: UsuariosService,
     private router: Router
   ) {}
-
-  ngOnInit(): void {}
+ datosUser;
+  ngOnInit(): void {this.datosUser = JSON.parse(sessionStorage.getItem("user"));}
   logout() {
     this.UsuarioService.logoutUsuario().subscribe((res:any)=>{
       Toast.fire({

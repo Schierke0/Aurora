@@ -12,7 +12,7 @@
             </div>
             <hr style="background-color: white;">
             <p id="nombre-usuario" style="font-size: 24px; color: white; text-align: center; font-weight: unset;">
-                <i class="far fa-user-circle"></i>&nbsp;Pedro Lopez</p>
+                <i class="far fa-user-circle"></i>&nbsp;{{datosUser.name}}</p>
         </div>
 
         <ul class="list-unstyled components">
@@ -70,7 +70,7 @@
         <hr style="background-color: white;">
         <ul class="list-unstyled CTAs">
             <li>
-                <a href="" class="btn btn-primary" (click)="logout()">Logout</a>
+                <a class="btn btn-primary" (click)="logout()">Logout</a>
             </li>
             <li>
                 <a href="" class="btn btn-primary">Pagina Principal</a>

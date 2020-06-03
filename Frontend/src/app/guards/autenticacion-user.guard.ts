@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -7,8 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class AutenticacionUserGuard implements CanActivate {
   datosUser = JSON.parse(sessionStorage.getItem("user"));
-  router: any;
-  constructor(){}
+  constructor(private router: Router){}
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -17,14 +16,13 @@ export class AutenticacionUserGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (
-      this.datosUser.codigoEstadoLogin == true &&
-      this.datosUser.rol == "5ed57bda29b6a53e447a1941"
-    ) {
-      return true;
-    } else {
+    if(this.datosUser!= null){
+     if (this.datosUser.codigoEstadoLogin==true)
+          return true;
+      } else {
       sessionStorage.clear();
-      this.router.navigate(["/admin"]);
+      //this.router.navigate(["/login"]);
+      this.router.navigateByUrl("/login");
       return false;
     }
   }

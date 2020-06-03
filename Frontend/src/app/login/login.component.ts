@@ -52,7 +52,8 @@ export class LoginComponent implements OnInit {
   registro: boolean = false;
   servidorEstatus: boolean = false;
   mensajeServidor: String = "";
-  ngOnInit(): void {sessionStorage.clear();}
+  ngOnInit(): void {
+    sessionStorage.removeItem("user");}
 
   cambiarPanelLogin() {
     this.login = true;
@@ -80,9 +81,9 @@ export class LoginComponent implements OnInit {
              rol: res.user.rolId,
              codigoEstadoLogin: res.codigoEstadoLogin,
            };
-           sessionStorage.setItem("user", JSON.stringify(datosUser));
-           console.log(JSON.parse(sessionStorage.getItem("user")));
-            this.router.navigate(["/paginaPrincipal"]);
+          sessionStorage.setItem("user", JSON.stringify(datosUser));
+          //console.log(JSON.parse(sessionStorage.getItem("user")));
+          this.router.navigate(["/paginaPrincipal"]);
           }
         }
       );

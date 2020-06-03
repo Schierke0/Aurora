@@ -47,6 +47,7 @@ export class PaginaPrincipalShowComponent implements OnInit {
     this.paginaEstaticaService.obtenerPaginas().subscribe((res: any) => {
       // console.log(res);
       this.paginasEstaticas = res;
+      console.log(JSON.parse(sessionStorage.getItem("user")));
     });
     this.paginaPrincipalService
       .obtenerPaginaPrincipal()
@@ -76,6 +77,7 @@ export class PaginaPrincipalShowComponent implements OnInit {
   }
   logout() {
     this.UsuarioService.logoutUsuario().subscribe((res: any) => {
+      sessionStorage.removeItem("user");
       Toast.fire({
         icon: "success",
         title: "Logout con éxito",

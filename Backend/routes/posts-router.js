@@ -45,9 +45,9 @@ router.get("/", function(req, res) {
 });
 //obtener todos los comentarios
 router.get("/comentarios", function(req, res) {
-    PaginaPost.find({}, { comentarios: true })
+    PaginaPost.find({}, { comentarios: true, categoria: true })
         .then((data) => {
-            res.send(data[0]);
+            res.send(data);
             res.end();
         })
         .catch((err) => {
@@ -55,6 +55,7 @@ router.get("/comentarios", function(req, res) {
             res.end();
         });
 });
+
 
 //obtener un post
 router.get("/:id", function(req, res) {
