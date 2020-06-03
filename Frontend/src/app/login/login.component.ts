@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
   registro: boolean = false;
   servidorEstatus: boolean = false;
   mensajeServidor: String = "";
-  ngOnInit(): void {}
+  ngOnInit(): void {sessionStorage.clear();}
 
   cambiarPanelLogin() {
     this.login = true;
@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
     if (this.formularioLogin.valid) {
       this.UsuarioService.loginUsuario(this.formularioLogin.value).subscribe(
         (res: any) => {
-          console.log(res);
+          //console.log(res);
           if (!res.codigoEstadoLogin) {
             this.mensajeServidor = res.mensaje;
             this.servidorEstatus = true;
@@ -75,6 +75,13 @@ export class LoginComponent implements OnInit {
             icon: "success",
             title: "Signed con éxito",
           });
+           let datosUser = {
+             name: res.user.name,
+             rol: res.user.rolId,
+             codigoEstadoLogin: res.codigoEstadoLogin,
+           };
+           sessionStorage.setItem("user", JSON.stringify(datosUser));
+           console.log(JSON.parse(sessionStorage.getItem("user")));
             this.router.navigate(["/paginaPrincipal"]);
           }
         }

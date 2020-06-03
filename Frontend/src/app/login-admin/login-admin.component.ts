@@ -27,7 +27,9 @@ export class LoginAdminComponent implements OnInit {
   servidorEstatus: boolean = false;
   mensajeServidor: String = "";
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    sessionStorage.clear();
+  }
   formularioLogin = new FormGroup({
     password: new FormControl("", [Validators.required]),
     email: new FormControl("", [
@@ -48,15 +50,28 @@ export class LoginAdminComponent implements OnInit {
       this.UsuarioService.loginUsuario(this.formularioLogin.value).subscribe(
         (res: any) => {
           console.log(res);
-          if (!res.codigoEstadoLogin) {
+          if (!res.codigoEstadoLogin) {//mostrar mensaje al usuario si existe o no
             this.mensajeServidor = res.mensaje;
             this.servidorEstatus = true;
-          } else {
-            Toast.fire({
-              icon: "success",
-              title: "Signed con éxito",
-            });
-            this.router.navigate(["/dashboard"]);
+          }else{if (res.user.rolId != "5ed57bda29b6a53e447a1941") {
+                  this.mensajeServidor =
+                    "Tu cuenta no tiene privilegios de acceso administrador";
+                  this.servidorEstatus = true;
+                } else {
+                  //logea correctamente
+                  Toast.fire({
+                    icon: "success",
+                    title: "Signed con éxito",
+                  });
+                  let datosUser = {
+                    name: res.user.name,
+                    rol: res.user.rolId,
+                    codigoEstadoLogin: res.codigoEstadoLogin,
+                  };
+                  sessionStorage.setItem("user", JSON.stringify(datosUser));
+                  console.log(JSON.parse(sessionStorage.getItem("user")));
+                  this.router.navigate(["/dashboard"]);
+                }
           }
         }
       );

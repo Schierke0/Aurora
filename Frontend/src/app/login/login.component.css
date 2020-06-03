@@ -23,7 +23,6 @@
        color: red !important;
    }
 
-   @import url('https://fonts.googleapis.com/css?family=Mukta');
    #contenedor-login {
        font-family: 'Mukta', sans-serif;
        height: 100vh;

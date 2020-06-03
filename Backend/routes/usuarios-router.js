@@ -34,7 +34,6 @@ router.post("/registro", function(req, res) {
         .catch(function(error) {
             console.log("Error saving user: ");
             console.log(error);
-            next();
         });
 
 
@@ -58,10 +57,14 @@ router.post("/login", function(req, res) {
             res.end();
         } else {
             req.session.user = usuario;
+            let sendInfo = {
+                "name": usuario.name,
+                "rolId": usuario.rol
+            }
             res.send({
                 mensaje: "Loggedin satisfactorimente",
-                user: usuario,
-                codigoEstadoLogin: true
+                user: sendInfo,
+                codigoEstadoLogin: true,
             });
             res.end();
         }

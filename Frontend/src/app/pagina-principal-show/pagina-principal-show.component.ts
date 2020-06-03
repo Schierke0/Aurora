@@ -80,7 +80,7 @@ export class PaginaPrincipalShowComponent implements OnInit {
         icon: "success",
         title: "Logout con éxito",
       });
-      this.router.navigate(["/admin"]);
+      this.router.navigate(["/login"]);
     });
   }
 }

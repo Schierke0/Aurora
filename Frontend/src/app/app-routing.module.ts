@@ -16,10 +16,12 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import {PaginaPrincipalShowComponent} from './pagina-principal-show/pagina-principal-show.component'
 import { PaginaEstaticaComponent } from './pagina-estatica/pagina-estatica.component';
 import { LoginAdminComponent } from './login-admin/login-admin.component';
+import {AutenticacionAdminGuard} from './guards/autenticacion-admin.guard';
 const routes: Routes = [
   {
     path: "dashboard",
     component: TableroAdminComponent,
+    canActivate:[AutenticacionAdminGuard],
     children: [
       {
         path: "admin-paginas",
