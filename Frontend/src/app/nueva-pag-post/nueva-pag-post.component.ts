@@ -19,8 +19,10 @@ export class NuevaPagPostComponent implements OnInit {
   categorias:any=[];
   opcionSeleccionado: string = "0"; // Iniciamos
   verSeleccion: string = "";
-
+  datosUser;
   ngOnInit(): void {
+  this.datosUser = JSON.parse(sessionStorage.getItem("user"));
+    this.Autor=this.datosUser.name;
     this.categoriaService.obtenerCategorias().subscribe((res:any)=>{
      this.categorias= res;
       console.log(this.categorias)

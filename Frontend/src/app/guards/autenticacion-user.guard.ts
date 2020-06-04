@@ -22,7 +22,7 @@ export class AutenticacionUserGuard implements CanActivate {
       } else {
       sessionStorage.clear();
       //this.router.navigate(["/login"]);
-      this.router.navigateByUrl("/login");
+      this.router.navigate(["/login"]);
       return false;
     }
   }

@@ -8,7 +8,7 @@
             </div>
             <div class="col-md-6 mt-3 mb-3">
                 <label for="autor">Autor</label>
-                <input [(ngModel)]="Autor" disableb="disabled" class="form-control" id="autor" value="Pedro Lopez">
+                <input [(ngModel)]="Autor" disabled class="form-control" id="autor">
             </div>
 
             <div class="col-sm-6 ">
@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="form-group col-md-4">
-                <select [(ngModel)]="opcionSeleccionado" (change)="capturar()">
+                <select [(ngModel)]="opcionSeleccionado" (change)="capturar()" class="form-control">
     <option value="0">Selecciona una opción</option>
     <option *ngFor="let categoria of categorias" [ngValue]="categoria.nombreCategoria">
       {{categoria.nombreCategoria}}
