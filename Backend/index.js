@@ -3,6 +3,7 @@ var cors = require("cors");
 var bodyParser = require("body-parser");
 var database = require('./modules/database');
 var session = require('express-session');
+
 //Routers
 var archivosRouter = require('./routes/archivos-router');
 var PaginaPrincipalRouter = require('./routes/pagina-principal-router');

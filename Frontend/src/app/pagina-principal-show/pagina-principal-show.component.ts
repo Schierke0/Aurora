@@ -46,7 +46,7 @@ export class PaginaPrincipalShowComponent implements OnInit {
 
   ngOnInit(): void {
     this.paginaEstaticaService.obtenerPaginas().subscribe((res: any) => {
-      // console.log(res);
+       console.log(res);
       this.paginasEstaticas = res;
       this.datosUser=JSON.parse(sessionStorage.getItem("user"));
       console.log(this.datosUser);

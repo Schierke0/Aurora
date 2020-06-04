@@ -53,7 +53,7 @@ export class LoginAdminComponent implements OnInit {
             this.mensajeServidor = res.mensaje;
             this.servidorEstatus = true;
           }if(res.user!= undefined){
-            if (res.user.rolId != "5ed57bda29b6a53e447a1941") {
+            if (res.user.rolId != "9835049") {
               this.mensajeServidor =
                 "Tu cuenta no tiene privilegios de acceso administrador";
               this.servidorEstatus = true;

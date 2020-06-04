@@ -27,7 +27,7 @@ export class AutenticacionAdminGuard implements CanActivate {
    if (this.datosUser!= null) {
      if (
        this.datosUser.codigoEstadoLogin == true &&
-       this.datosUser.rol == "5ed57bda29b6a53e447a1941"
+       this.datosUser.rol == "9835049"
      )
        return true;
    }

@@ -28,6 +28,7 @@ export class UsuariosComponent implements OnInit {
    // this.obtenerRol();
     this.cargarUsuarios();
     this.servicioRoles.obtenerRoles().subscribe((res) => this.roles=res);
+    console.log(this.roles);
   }
 
   open(content) {
@@ -41,6 +42,7 @@ export class UsuariosComponent implements OnInit {
       rol: this.idRolSelecionado,
       nombreRol: this.nombreRolSeleccionado
     }
+    console.log(data);
     this.usuarioService.registroUsuario(data).subscribe((res:any)=>{
       this.cargarUsuarios();
       Swal.fire(
@@ -61,6 +63,21 @@ export class UsuariosComponent implements OnInit {
     this.getNombreRol();
   }
   getNombreRol(){
-    this.servicioRoles.obtenerNombreRol(this.idRolSelecionado).subscribe(res => { this.nombreRolSeleccionado= res.nombreRol});
-  }
+    switch (this.idRolSelecionado) {
+      case "4567890":
+this.nombreRolSeleccionado="Registrado";
+        break;
+      case "9835049":
+        this.nombreRolSeleccionado="Administrador";
+        break;
+
+      case "10152090":
+        this.nombreRolSeleccionado="No registrado";
+        break;
+
+
+      default:
+        break;
+    }
+}
 }

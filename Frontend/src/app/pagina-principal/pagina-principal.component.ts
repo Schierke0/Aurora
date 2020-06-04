@@ -17,7 +17,7 @@ export class PaginaPrincipalComponent implements OnInit {
   constructor(
     private archivosService: ArchivosService,
     private paginaPrincipalService: PaginaPrincipalService,
-    private modalService: NgbModal 
+    private modalService: NgbModal
   ) {}
 
   public compactControl = new ColorPickerControl();
@@ -29,7 +29,7 @@ export class PaginaPrincipalComponent implements OnInit {
     this.cargarDatosActuales();
   }
 
-  css: string;
+  css: string="css aqui";
   TituloPagina: string;
   PalabrasClave: string;
   colorFoot: string = this.compactControl.value.toHexString();
@@ -39,6 +39,7 @@ export class PaginaPrincipalComponent implements OnInit {
   labelLogotipo = "Seleccione Logotipo";
   labelIcono = "Seleccione Icono";
   labelBackground = "Seleccione fondo";
+  existePagina;
 
   uploadedFiles: Array<File>;
   uploadedFiles2: Array<File>;
@@ -48,16 +49,19 @@ export class PaginaPrincipalComponent implements OnInit {
     this.paginaPrincipalService
       .obtenerPaginaPrincipal()
       .subscribe((res: any) => {
-        console.log(res);
-        this.css = res.css;
-        this.TituloPagina = res.TituloPagina;
-        this.PalabrasClave = res.PalabrasClave;
-        this.colorFoot = res.colorFoot;
-        this.colorTextoTitulo = res.colorTextoTitulo;
-        this.colorTextoFooter = res.colorTextoFooter;
-        this.labelLogotipo = res.acessoRouteLogotipo.split("/").pop();
-        this.labelIcono = res.acessoRouteFavIcon.split("/").pop();
-        this.labelBackground = res.acessoRouteImagenfondo.split("/").pop();
+        if (res!=null) {
+          this.existePagina = true;
+          this.idPagina = res._id,
+          this.css = res.css;
+          this.TituloPagina = res.TituloPagina;
+          this.PalabrasClave = res.PalabrasClave;
+          this.colorFoot = res.colorFoot;
+          this.colorTextoTitulo = res.colorTextoTitulo;
+          this.colorTextoFooter = res.colorTextoFooter;
+          this.labelLogotipo = res.acessoRouteLogotipo.split("/").pop();
+          this.labelIcono = res.acessoRouteFavIcon.split("/").pop();
+          this.labelBackground = res.acessoRouteImagenfondo.split("/").pop();
+        }else this.existePagina=false;
       });
   }
 
@@ -79,7 +83,7 @@ export class PaginaPrincipalComponent implements OnInit {
     let acessoRouteLogotipo;
     let acessoRouteImagenfondo;
 
-    if (this.uploadedFiles != undefined) { 
+    if (this.uploadedFiles != undefined) {
       let formData = new FormData();
       formData.append("file", this.uploadedFiles[0]);
       this.archivosService.guardarArchivoP(formData).subscribe((res: any) => {
@@ -136,12 +140,20 @@ export class PaginaPrincipalComponent implements OnInit {
       acessoRouteLogotipo: acessoRouteLogotipo,
       acessoRouteImagenfondo: acessoRouteImagenfondo,
     };
+if (this.existePagina) {
+  this.paginaPrincipalService
+    .actualizarPaginaPrincipal(paginaPrincipal, this.idPagina)
+    .subscribe((res) => {
+      Swal.fire("Pagina Principal actualizada", "correctamente", "success");
+    });
+} else{
+  this.paginaPrincipalService
+    .guardarPaginaPrincipal(paginaPrincipal)
+    .subscribe((res) => {
+      Swal.fire("Pagina Principal actualizada", "correctamente", "success");
+    });
+}
 
-    this.paginaPrincipalService
-      .actualizarPaginaPrincipal(paginaPrincipal, this.idPagina)
-      .subscribe((res) => {
-        Swal.fire("Pagina Principal actualizada", "correctamente", "success");
-      });
   }
 
   /*  colorFoot;

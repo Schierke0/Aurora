@@ -47,7 +47,7 @@
 
         <select [(ngModel)]="opcionSeleccionado" (change)="capturar()">
   <option value="0">Selecciona una opción</option>
-  <option [ngValue]="rol._id" *ngFor="let rol of roles">
+  <option [ngValue]="rol.id" *ngFor="let rol of roles">
     {{rol.nombreRol}}
   </option>
 </select>

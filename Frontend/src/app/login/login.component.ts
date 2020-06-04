@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
         "^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$"
       ),
     ]),
-    rol: new FormControl("5ed57bd129b6a53e447a1940"),
+    rol: new FormControl("4567890"),
     nombreRol: new FormControl("Registrado"),
   });
 
