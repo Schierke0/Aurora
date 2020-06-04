@@ -12,7 +12,7 @@ router.post("/registro", function(req, res) {
     bcrypt
         .hash(password, BCRYPT_SALT_ROUNDS)
         .then(function(hashedPassword) {
-            var u = new User({ email: email, password: hashedPassword, name: req.body.name, rol: req.body.rol });
+            var u = new User({ email: email, password: hashedPassword, name: req.body.name, rol: req.body.rol, nombreRol: req.body.nombreRol });
             u.save()
                 .then((result) => {
                     res.send(result);
@@ -133,6 +133,14 @@ router.get("/:idUser", function(req, res) {
 
 });
 
-
+//actualizar rol usuario
+router.put("/:idUser", function(req, res) {
+    User.updateOne({ _id: req.params.idUser }, {
+        $set: {
+            nombreRol: req.body.nombrerol,
+            rol: req.body.rol
+        },
+    })
+});
 
 module.exports = router;

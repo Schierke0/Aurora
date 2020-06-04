@@ -13,7 +13,6 @@ import { NuevaPagEstaticaComponent } from './nueva-pag-estatica/nueva-pag-estati
 import { AdminPostComponent } from './admin-post/admin-post.component';
 import { SeleccionarTemaComponent } from './seleccionar-tema/seleccionar-tema.component';
 import { CrearTemaComponent } from './crear-tema/crear-tema.component';
-import { AdminUsuariosComponent } from './admin-usuarios/admin-usuarios.component';
 import { AdminPaginasComponent } from './admin-paginas/admin-paginas.component';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { ColorPickerModule } from '@iplab/ngx-color-picker';
@@ -34,6 +33,7 @@ import { PaginaEstaticaComponent } from './pagina-estatica/pagina-estatica.compo
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { PaginasVisiblesComponent } from './paginas-visibles/paginas-visibles.component';
 import { LoginAdminComponent } from './login-admin/login-admin.component';
+import { SidebarModule } from "ng-sidebar";
 
 
 @NgModule({
@@ -49,7 +49,6 @@ import { LoginAdminComponent } from './login-admin/login-admin.component';
     AdminPostComponent,
     SeleccionarTemaComponent,
     CrearTemaComponent,
-    AdminUsuariosComponent,
     AdminPaginasComponent,
     UsuariosComponent,
     SeguridadPaginasComponent,
@@ -77,7 +76,8 @@ import { LoginAdminComponent } from './login-admin/login-admin.component';
     MatCardModule,
     MatProgressBarModule,
     NgbModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    SidebarModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

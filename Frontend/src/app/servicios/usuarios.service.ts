@@ -10,6 +10,9 @@ export class UsuariosService {
   registroUsuario(data) {
     return this.httpClient.post("http://localhost:8888/usuario/registro", data);
   }
+  actualizarRolUsuario(idUser,data) {
+    return this.httpClient.put(`http://localhost:8888/usuario/${idUser}`, data);
+  }
   obtenerUsuarios(): Observable<any> {
     return this.httpClient.get("http://localhost:8888/usuario");
   }

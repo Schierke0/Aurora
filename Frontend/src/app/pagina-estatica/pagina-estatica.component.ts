@@ -34,10 +34,13 @@ export class PaginaEstaticaComponent implements OnInit {
   comentario: String = "";
   images = [];
   arraDebg: any = [];
+  datosUser;
+  NombreUsuario;
 
   ngOnInit(): void {
     this.idPaginaActual = this.localStaticService.getId();
-
+    this.datosUser = JSON.parse(sessionStorage.getItem("user"));
+    this.NombreUsuario = this.datosUser.name;
     this.cargarComponentes(this.idPaginaActual);
     let meses = new Array(
       "Ene",
@@ -60,6 +63,7 @@ export class PaginaEstaticaComponent implements OnInit {
   cargarComponentes(idPagina) {
     this.paginaEstaticaService.obtenerPagina(idPagina).subscribe((res: any) => {
       this.datosPagina = res;
+      console.log(this.datosPagina);
       if (res.galeria.length != 0) {
         res.galeria.forEach((e) => {
           this.images.push(e.url);
@@ -84,8 +88,8 @@ export class PaginaEstaticaComponent implements OnInit {
   comentar(idPost) {
     let data = {
       comentario: this.comentario,
-      usuario: "Pablo Lorenzo",
-      urlImagen: "/archivosPublicos/users/52k60.jpg",
+      usuario: this.NombreUsuario,
+      urlImagen: "/archivosPublicos/users/52k60.png",
       fecha: this.fechaActual,
     };
     this.postService.agregarComentario(idPost, data).subscribe((res: any) => {

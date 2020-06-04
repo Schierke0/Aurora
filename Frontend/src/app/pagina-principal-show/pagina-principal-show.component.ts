@@ -42,12 +42,14 @@ export class PaginaPrincipalShowComponent implements OnInit {
   acessoRouteLogotipo = "http://localhost:8888";
   acessoRouteImagenfondo = "http://localhost:8888";
   paginasEstaticas: any = [];
+  datosUser;
 
   ngOnInit(): void {
     this.paginaEstaticaService.obtenerPaginas().subscribe((res: any) => {
       // console.log(res);
       this.paginasEstaticas = res;
-      console.log(JSON.parse(sessionStorage.getItem("user")));
+      this.datosUser=JSON.parse(sessionStorage.getItem("user"));
+      console.log(this.datosUser);
     });
     this.paginaPrincipalService
       .obtenerPaginaPrincipal()

@@ -40,10 +40,10 @@ router.get("/", function(req, res) {
 });
 
 //obtener una rol
-router.post("/:id", function(req, res) {
-    rol.find({ _id: req.params.id })
+router.get("/:id", function(req, res) {
+    rol.find({ _id: req.params.id }, { nombreRol: true })
         .then((data) => {
-            res.send(data);
+            res.send(data[0]);
             res.end();
         })
         .catch((err) => {

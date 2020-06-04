@@ -9,21 +9,68 @@ const fs = require("fs");
 
 //CREAR UN ARCHIVO
 router.post('/', function(req, res) {
+        if (req.files == null)
+            return res.send({ message: "no ha seleccionado ningun archivo. Por favor seleccionar uno", err: 1, });
+
+        let archivo = req.files.file; //mismo nombre en el form! importante
+        let tipoArchivo = archivo.mimetype;
+        // res.send({ 'tipo': tipoArchivo })
+
+        let ruta = './archivos'; // ruta donde guardar
+        let accesoRoute = "/archivosPublicos";
+        let categoria = asignarCategoria(tipoArchivo);
+
+
+        ruta = `${ruta}/${categoria}/${archivo.name}`
+        accesoRoute = `${accesoRoute}/${categoria}/${archivo.name}`
+            //es.send({ 'accesoRoute': accesoRoute, 'ruta': ruta })
+        archivo.mv(ruta, (err) => {
+            if (err) return res.send(err);
+            else {
+                let u = new Archivo({
+                    nombre: archivo.name,
+                    url: ruta,
+                    accesoRoute: accesoRoute,
+                    tipoArchivo: tipoArchivo,
+                    categoria: categoria,
+                });
+                u.save()
+                    .then((result) => {
+                        res.send(result);
+                        res.end();
+                    })
+                    .catch((err) => {
+                        res.send(err);
+                        res.end();
+                    });
+                res.send({
+                    codigoResultado: 1,
+                    mensaje: "Registro guardado",
+                    ArchivoGuardado: u
+                });
+            }
+        });
+
+    })
+    //guardar archivos de pagina Principal
+router.post("/paginaPrincipal", function(req, res) {
     if (req.files == null)
-        return res.send({ message: "no ha seleccionado ningun archivo. Por favor seleccionar uno", err: 1, });
+        return res.send({
+            message: "no ha seleccionado ningun archivo. Por favor seleccionar uno",
+            err: 1,
+        });
 
     let archivo = req.files.file; //mismo nombre en el form! importante
     let tipoArchivo = archivo.mimetype;
     // res.send({ 'tipo': tipoArchivo })
 
-    let ruta = './archivos'; // ruta donde guardar
+    let ruta = "./archivos"; // ruta donde guardar
     let accesoRoute = "/archivosPublicos";
-    let categoria = asignarCategoria(tipoArchivo);
+    let categoria = "paginaPrincipal";
 
-
-    ruta = `${ruta}/${categoria}/${archivo.name}`
-    accesoRoute = `${accesoRoute}/${categoria}/${archivo.name}`
-        //es.send({ 'accesoRoute': accesoRoute, 'ruta': ruta })
+    ruta = `${ruta}/${categoria}/${archivo.name}`;
+    accesoRoute = `${accesoRoute}/${categoria}/${archivo.name}`;
+    //es.send({ 'accesoRoute': accesoRoute, 'ruta': ruta })
     archivo.mv(ruta, (err) => {
         if (err) return res.send(err);
         else {
@@ -46,12 +93,11 @@ router.post('/', function(req, res) {
             res.send({
                 codigoResultado: 1,
                 mensaje: "Registro guardado",
-                ArchivoGuardado: u
+                ArchivoGuardado: u,
             });
         }
     });
-
-})
+});
 
 
 //OBTENER UN ARCHIVO

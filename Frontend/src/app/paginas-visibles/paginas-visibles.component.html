@@ -1,1 +1,37 @@
-<p>paginas-visibles works!</p>
+<div class="card mb-5 mt-5">
+    <h5 class="card-header">Paginas generadas existentes</h5>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Titulo</th>
+                            <th scope="col">Descripcion</th>
+                            <th scope="col">Publica</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let pagina of paginas; let i =index">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{pagina.TituloMenu}}</td>
+                            <td>
+                                {{pagina.Descripcion}}
+                            </td>
+                            <td>
+                                <i *ngIf="pagina.opciones[0].EstadoPagina" class="far fa-eye" (click)="cambiarVisibilidad(pagina.opciones, pagina._id)"></i>
+                                <i *ngIf="!pagina.opciones[0].EstadoPagina" class="far fa-eye-slash" (click)="cambiarVisibilidad(pagina.opciones, pagina._id)"></i>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-6 mt-5">
+                <!-- <button class="btn btn-dark" (click)="open(content)"> Agregar Usuario</button> -->
+            </div>
+
+        </div>
+    </div>
+</div>

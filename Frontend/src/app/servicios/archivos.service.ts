@@ -11,6 +11,12 @@ export class ArchivosService {
   guardarArchivo(data): Observable<any> {
     return this.httpClient.post("http://localhost:8888/archivos", data);
   }
+  guardarArchivoP(data): Observable<any> {
+    return this.httpClient.post(
+      "http://localhost:8888/archivos/paginaPrincipal",
+      data
+    );
+  }
   obtenerArchivos(): Observable<any> {
     return this.httpClient.get("http://localhost:8888/archivos");
   }
@@ -18,7 +24,9 @@ export class ArchivosService {
     return this.httpClient.get(`http://localhost:8888/archivos/${idArchivo}`);
   }
   eliminarUnArchivo(idArchivo): Observable<any> {
-    return this.httpClient.delete(`http://localhost:8888/archivos/${idArchivo}`);
+    return this.httpClient.delete(
+      `http://localhost:8888/archivos/${idArchivo}`
+    );
   }
 }
 

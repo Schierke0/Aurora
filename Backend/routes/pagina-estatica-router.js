@@ -64,10 +64,8 @@ router.get("/:id", function(req, res) {
 router.put("/:id", function(req, res) {
     PaginaEstatica.updateOne({ _id: req.params.id }, {
             $set: {
-                Titulo: req.body.Titulo,
-                TituloMenu: req.body.TituloMenu,
-                PalabrasClave: req.body.PalabrasClave,
-                Descripcion: req.body.Descripcion
+                opciones: req.body.opciones
+
             },
         })
         .then((data) => {

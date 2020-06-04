@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsuariosService } from "../servicios/usuarios.service";
 import { CanActivate, Router } from "@angular/router";
 import Swal from "sweetalert2";
+import { SidebarModule } from "ng-sidebar";
 const Toast = Swal.mixin({
   toast: true,
   position: "top-end",
@@ -23,15 +24,23 @@ export class TableroAdminComponent implements OnInit {
     private UsuarioService: UsuariosService,
     private router: Router
   ) {}
- datosUser;
-  ngOnInit(): void {this.datosUser = JSON.parse(sessionStorage.getItem("user"));}
+  datosUser;
+  isCollapsed;
+  ngOnInit(): void {
+    this.datosUser = JSON.parse(sessionStorage.getItem("user"));
+  }
   logout() {
-    this.UsuarioService.logoutUsuario().subscribe((res:any)=>{
+    this.UsuarioService.logoutUsuario().subscribe((res: any) => {
       Toast.fire({
         icon: "success",
         title: "Logout con éxito",
       });
       this.router.navigate(["/admin"]);
-    })
+    });
+  }
+  NgbdCollapseBasic() {
+    this.isCollapsed = false;
   }
 }
+
+

@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
       ),
     ]),
     rol: new FormControl("5ed57bd129b6a53e447a1940"),
+    nombreRol: new FormControl("Registrado"),
   });
 
   formularioLogin = new FormGroup({

@@ -79,17 +79,17 @@ export class PaginaPrincipalComponent implements OnInit {
     let acessoRouteLogotipo;
     let acessoRouteImagenfondo;
 
-    if (this.uploadedFiles != undefined) {
+    if (this.uploadedFiles != undefined) { 
       let formData = new FormData();
       formData.append("file", this.uploadedFiles[0]);
-      this.archivosService.guardarArchivo(formData).subscribe((res: any) => {
+      this.archivosService.guardarArchivoP(formData).subscribe((res: any) => {
         acessoRouteFavIcon = res.ArchivoGuardado.accesoRoute;
         // console.log(acessoRouteFavIcon);
         if (this.uploadedFiles2 != undefined) {
           let formData = new FormData();
           formData.append("file", this.uploadedFiles2[0]);
           this.archivosService
-            .guardarArchivo(formData)
+            .guardarArchivoP(formData)
             .subscribe((res: any) => {
               acessoRouteLogotipo = res.ArchivoGuardado.accesoRoute;
               //this.enviarDatos(acessoRouteFavIcon, acessoRouteLogotipo );
@@ -97,7 +97,7 @@ export class PaginaPrincipalComponent implements OnInit {
                 let formData = new FormData();
                 formData.append("file", this.uploadedFiles2[0]);
                 this.archivosService
-                  .guardarArchivo(formData)
+                  .guardarArchivoP(formData)
                   .subscribe((res: any) => {
                     acessoRouteLogotipo = res.ArchivoGuardado.accesoRoute;
                     //this.enviarDatos(acessoRouteFavIcon, acessoRouteLogotipo );
@@ -105,7 +105,7 @@ export class PaginaPrincipalComponent implements OnInit {
                       let formData = new FormData();
                       formData.append("file", this.uploadedFiles3[0]);
                       this.archivosService
-                        .guardarArchivo(formData)
+                        .guardarArchivoP(formData)
                         .subscribe((res: any) => {
                           acessoRouteImagenfondo =
                             res.ArchivoGuardado.accesoRoute;

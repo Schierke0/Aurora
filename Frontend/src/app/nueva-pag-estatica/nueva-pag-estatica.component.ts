@@ -7,6 +7,7 @@ import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 import { PaginaPostService } from '../servicios/pagina-post.service';
 declare var CKEDITOR: any;
 declare var $: any;
+import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
 @Component({ 
   selector: 'app-nueva-pag-estatica',
   templateUrl: './nueva-pag-estatica.component.html',
@@ -17,7 +18,8 @@ export class NuevaPagEstaticaComponent implements OnInit {
   constructor(
     private paginaEstaticaService: PaginaEstaticaService, 
     private archivosService: ArchivosService,
-    private paginaPostService: PaginaPostService) { }
+    private paginaPostService: PaginaPostService,
+   private modalService: NgbModal) { }
   public Editor = ClassicEditor;
 
   ngOnInit(): void {
@@ -67,6 +69,9 @@ export class NuevaPagEstaticaComponent implements OnInit {
       isChecked: false
     },
   ]
+  open(content){
+    this.modalService.open(content, { size: "lg" });
+  }
 
   changeSelection() {
     this.fetchSelectedItems()

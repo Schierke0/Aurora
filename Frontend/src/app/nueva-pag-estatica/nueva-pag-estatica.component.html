@@ -42,7 +42,7 @@
 
             <div class="col-sm-12 mt-3 mb-5">
                 <div class="custom-file mb-3">
-                    Ingresa tus shortcuts.
+                    Ingresa tus shortcuts.&nbsp; <i class="far fa-question-circle" (click)="open(content)"></i>
                     <ckeditor [editor]="Editor" (change)="onChange($event)" data="<p>Escibe aqui tus shortcuts</p>"></ckeditor>
 
                 </div>
@@ -57,3 +57,29 @@
 
     </div>
 </div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">¿Cómo usar los shortcuts?</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <p>Estos son los formatos para ingresarlos:</p>
+                    <p><b>Imagenes:</b><br> {{ '{' }}"tipo":"imagen", "id":"5ec48e20ddd68e095c2969c1"{{ '}' }}</p>
+                    <p><b>Videos:</b><br> {{ '{' }}"tipo":"video", "id":"5ec48e20ddd68e095c2969c1"{{ '}' }}</p>
+                    <p><b>Enlaces de descarga:</b><br> {{ '{' }}"tipo":"enlace", "id":"5ec48e20ddd68e095c2969c1"{{ '}' }}</p>
+                    <p><b>Galeria de imagenes:</b><br> {{ '{' }}"tipo":"galeria", "imagenes":["5ece2bfe55b5fa325cea797c","5ed372beb377414124007835"]{{ '}' }}
+                    </p>
+                    <p><b>Posts:</b><br> {{ '{' }}"tipo":"post", "id":"5ec48e20ddd68e095c2969c1"{{ '}' }}</p><br><br>
+                    <b>Los id puedes obtenerlos en nuestra seccion de recursos</b>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</ng-template>

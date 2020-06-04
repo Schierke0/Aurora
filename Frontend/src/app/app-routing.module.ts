@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { TableroAdminComponent } from './tablero-admin/tablero-admin.component';
 import { AdminPaginasComponent } from './admin-paginas/admin-paginas.component';
 import { AdminPostComponent } from './admin-post/admin-post.component';
-import { AdminUsuariosComponent } from './admin-usuarios/admin-usuarios.component';
 import { CrearTemaComponent } from './crear-tema/crear-tema.component';
 import { NuevaPagEstaticaComponent } from './nueva-pag-estatica/nueva-pag-estatica.component';
 import { NuevaPagPostComponent } from './nueva-pag-post/nueva-pag-post.component';
@@ -18,6 +17,7 @@ import { PaginaEstaticaComponent } from './pagina-estatica/pagina-estatica.compo
 import { LoginAdminComponent } from './login-admin/login-admin.component';
 import {AutenticacionAdminGuard} from './guards/autenticacion-admin.guard';
 import {AutenticacionUserGuard } from "./guards/autenticacion-user.guard";
+import { PaginasVisiblesComponent } from './paginas-visibles/paginas-visibles.component';
 const routes: Routes = [
   {
     path: "dashboard",
@@ -31,10 +31,6 @@ const routes: Routes = [
       {
         path: "admin-post",
         component: AdminPostComponent,
-      },
-      {
-        path: "admin-usuarios",
-        component: AdminUsuariosComponent,
       },
       {
         path: "crear-tema",
@@ -63,6 +59,10 @@ const routes: Routes = [
       {
         path: "usuarios",
         component: UsuariosComponent,
+      },
+      {
+        path: "paginasVisibles",
+        component: PaginasVisiblesComponent,
       },
     ],
   },

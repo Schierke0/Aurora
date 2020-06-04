@@ -9,62 +9,51 @@
                             <th scope="col">#</th>
                             <th scope="col">Nombre Usuario</th>
                             <th scope="col">Rol</th>
-                            <th scope="col">Cambiar Rol</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Rosa Martinez</td>
-                            <td>Administrador</td>
+                        <tr *ngFor="let usuario of usuarios; let i =index">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{usuario.name}}</td>
                             <td>
-                                <select id="inputState" class="form-control">
-          <option selected>Choose...</option>
-          <option>Administrador</option>
-          <option>Registrado</option>
-        </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Mario Lopez</td>
-                            <td>Registrado</td>
-                            <td>
-                                <select id="inputState0" class="form-control">
-          <option selected>Choose...</option>
-          <option>Administrador</option>
-          <option>Registrado</option>
-        </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Jody Santos</td>
-                            <td>Administrador</td>
-                            <td>
-                                <select id="inputState1" class="form-control">
-          <option selected>Choose...</option>
-          <option>Administrador</option>
-          <option>Registrado</option>
-        </select>
+                                {{usuario.nombreRol}}
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div class="col-sm-6 mt-5">
-                Nombre
-                <input class="form-control">
-            </div>
-            <div class="col-sm-6 mt-5">
-                Rol
-                <input class="form-control">
-            </div>
-
-            <div class="col-sm-6 mt-5">
-                <button class="btn btn-dark"> Agregar Usuario</button>
+                <button class="btn btn-dark" (click)="open(content)"> Agregar Usuario</button>
             </div>
 
         </div>
     </div>
 </div>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Nuevo usuario</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        Nombre Usuario:
+        <input class="form-control" [(ngModel)]="name"><br> Correo para acceder:
+        <input class="form-control" [(ngModel)]="email"> <br> Contraseña:
+
+        <input type="password" class="form-control" [(ngModel)]="password"><br>
+
+        <select [(ngModel)]="opcionSeleccionado" (change)="capturar()">
+  <option value="0">Selecciona una opción</option>
+  <option [ngValue]="rol._id" *ngFor="let rol of roles">
+    {{rol.nombreRol}}
+  </option>
+</select>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="GuardarUser()">Guardar Usuario</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">cancelar</button>
+    </div>
+</ng-template>
